@@ -1,0 +1,16 @@
+bboxes: [ 55 323  80 343   0], label_text: netport|1.00
+bboxes: [187 299 235 319   0], label_text: two_netport|0.88
+bboxes: [187 324 235 343   0], label_text: two_netport|0.91
+bboxes: [344 324 391 343   0], label_text: two_netport|0.83
+bboxes: [346 300 393 319   0], label_text: two_netport|0.88
+bboxes: [ 90 299 188 319   0], label_text: four_netport|0.94
+bboxes: [ 92 323 188 342   0], label_text: four_netport|0.87
+bboxes: [250 300 346 319   0], label_text: four_netport|0.86
+bboxes: [250 323 349 342   0], label_text: four_netport|0.90
+bboxes: [502 327 529 346   0], label_text: optical_netport|0.99
+bboxes: [437 326 464 346   0], label_text: optical_netport|0.99
+bboxes: [402 326 429 346   0], label_text: optical_netport|0.99
+bboxes: [470 326 498 346   0], label_text: optical_netport|0.98
+bboxes: [ 37 282 762 358   0], label_text: backplane|1.00
+bboxes: [ 29 286  67 301   0], label_text: manufacturer|1.00
+bboxes: [ 38 330  48 341   0], label_text: indicatorlight|0.45
