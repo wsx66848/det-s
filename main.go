@@ -19,17 +19,20 @@ func parseArg() {
 	help := flag.Bool("h", false, "help")
 	addr := flag.String("a", ":8003", "[ip][:port]")
 	file := flag.String("f", "fsc/detect.py", "python file")
+	publicDir := flag.String("public", "vue/dist/", "public dir")
 	debug := flag.Bool("d", false, "debug")
 	flag.Parse()
 	args["help"] = *help
 	args["addr"] = *addr
 	args["file"] = *file
+	args["public"] = *publicDir
 	args["debug"] = *debug
 	loger <- fmt.Sprint(args)
 }
 
 func main() {
-	http.HandleFunc("/", index)
+	http.HandleFunc("/upload", uploadHandler)
+	http.Handle("/", &staticHandler{})
 	http.ListenAndServe(args["addr"].(string), nil)
 }
 
@@ -45,7 +48,7 @@ func record() {
 	}
 }
 
-func index(w http.ResponseWriter, r *http.Request) {
+func uploadHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		// w.Header().Set("Content-Type", "text/xml; charset=UTF-8")
 		// w.Write(call("fsc/test.jpg"))
