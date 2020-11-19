@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="44.8" height="62.6">
+    <style>
+        .st5 {
+            fill: #d6d7d7
+        }
+
+    </style>
+    <g id="XMLID_1_">
+        <g id="XMLID_9_">
+            <path id="XMLID_18_" fill="#484747" d="M1 1h42.8v60.6H1z" />
+            <path id="XMLID_10_" d="M0 0h44.8v62.6H0V0zm42.8 2H2v58.6h40.8V2z" fill="#161616" />
+        </g>
+        <path id="XMLID_8_" fill="#040000" d="M22.4 9h15.9l.7 44.5H22.4z" />
+        <path id="XMLID_7_" fill="#1d1e1e" d="M7.1 42.2h28.4l2.2 11.3H9.4z" />
+        <path id="XMLID_6_" fill="#3c3b3f" d="M8.5 9H37l-1.7 33.2H7z" />
+        <path id="XMLID_5_" class="st5" d="M22.6 29h2v9h-2z" />
+        <path id="XMLID_2_" class="st5"
+            d="M23.6 14.1c3.1 0 5.6 2.5 5.6 5.5s-2.5 5.5-5.6 5.5-5.6-2.5-5.6-5.5 2.5-5.5 5.6-5.5zm0 9c2 0 3.6-1.6 3.6-3.5s-1.6-3.5-3.6-3.5-3.6 1.6-3.6 3.5 1.6 3.5 3.6 3.5z" />
+    </g>
+</svg>

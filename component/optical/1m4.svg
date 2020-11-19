@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="168.2" height="31">
+    <style>
+        .st1 {
+            fill: #040000
+        }
+
+        .st2 {
+            fill: #333
+        }
+
+        .st3 {
+            fill: #110f0e
+        }
+
+        .st4 {
+            fill: #3d3a39
+        }
+
+        .st5 {
+            fill: #070001
+        }
+
+        .st6 {
+            fill: #f2eb9b
+        }
+
+        .st7 {
+            fill: #fff
+        }
+
+        .st8 {
+            fill: #070707
+        }
+
+    </style>
+    <g id="XMLID_1_">
+        <g id="XMLID_5_">
+            <g id="XMLID_147_">
+                <g id="XMLID_151_">
+                    <path id="XMLID_155_" fill="#ddd" d="M1 1h166.1v29H1z" />
+                    <path id="XMLID_152_" class="st1" d="M168.2 31H0V0h168.1l.1 31zM2 29h164.1V2H2v27z" />
+                </g>
+                <path id="XMLID_148_" class="st1" d="M167.5 30.3H.5V.3h167v30zm-166-.8h165.3V1.6H1.5v27.9z" />
+            </g>
+            <g id="XMLID_111_">
+                <path id="XMLID_146_" class="st2" d="M15 27.7h16.3v2.6H15z" />
+                <g id="interface_1_light_7_">
+                    <path id="XMLID_145_" class="st3" d="M3.5 3.1h38.8v24.6H3.5z" />
+                    <g id="XMLID_140_">
+                        <path id="XMLID_144_" class="st4" d="M11.2 17.2h23.4v6.2H11.2z" />
+                        <path id="XMLID_141_" class="st5" d="M34.8 23.5H11.1V17h23.7v6.5zm-23.5-.3h23.2v-6H11.3v6z" />
+                    </g>
+                    <g id="XMLID_117_">
+                        <path id="XMLID_139_" class="st6" d="M16.9 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_138_" class="st6" d="M15.6 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_137_" class="st6" d="M14.3 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_134_" class="st6" d="M13 18.7h.5v3.1H13z" />
+                        <path id="XMLID_133_" class="st6" d="M22 18.7h.5v3.1H22z" />
+                        <path id="XMLID_130_" class="st6" d="M20.7 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_129_" class="st6" d="M19.4 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_128_" class="st6" d="M18.2 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_127_" class="st6" d="M27.2 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_126_" class="st6" d="M25.8 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_123_" class="st6" d="M24.6 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_122_" class="st6" d="M23.3 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_121_" class="st6" d="M32.3 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_120_" class="st6" d="M31.1 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_119_" class="st6" d="M29.8 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_118_" class="st6" d="M28.5 18.7h.5v3.1h-.5z" />
+                    </g>
+                </g>
+                <g id="XMLID_112_">
+                    <path id="XMLID_116_" class="st7" d="M15 25.3h16.3v2H15z" />
+                    <path id="XMLID_113_" class="st5" d="M31.4 27.3H15.1v-2.1h16.3v2.1zm-16.3-.1h16.1v-1.9H15.1v1.9z" />
+                </g>
+            </g>
+            <g id="XMLID_77_">
+                <path id="XMLID_110_" class="st2" d="M55.7 27.7H72v2.6H55.7z" />
+                <g id="interface_1_light_6_">
+                    <path id="XMLID_109_" class="st3" d="M44.2 3.1H83v24.6H44.2z" />
+                    <g id="XMLID_104_">
+                        <path id="XMLID_108_" class="st4" d="M51.9 17.2h23.4v6.2H51.9z" />
+                        <path id="XMLID_105_" class="st5" d="M75.5 23.5H51.8V17h23.7v6.5zM52 23.2h23.2v-6H52v6z" />
+                    </g>
+                    <g id="XMLID_83_">
+                        <path id="XMLID_101_" class="st6" d="M57.6 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_100_" class="st6" d="M56.3 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_99_" class="st6" d="M55 18.7h.5v3.1H55z" />
+                        <path id="XMLID_98_" class="st6" d="M53.7 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_97_" class="st6" d="M62.7 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_96_" class="st6" d="M61.4 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_93_" class="st6" d="M60.1 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_92_" class="st6" d="M58.9 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_91_" class="st6" d="M67.9 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_90_" class="st6" d="M66.5 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_89_" class="st6" d="M65.3 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_88_" class="st6" d="M64 18.7h.5v3.1H64z" />
+                        <path id="XMLID_87_" class="st6" d="M73 18.7h.5v3.1H73z" />
+                        <path id="XMLID_86_" class="st6" d="M71.8 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_85_" class="st6" d="M70.5 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_84_" class="st6" d="M69.2 18.7h.5v3.1h-.5z" />
+                    </g>
+                </g>
+                <g id="XMLID_78_">
+                    <path id="XMLID_82_" class="st7" d="M55.7 25.3H72v2H55.7z" />
+                    <path id="XMLID_79_" class="st5" d="M72.1 27.3H55.8v-2.1h16.3v2.1zm-16.3-.1h16.1v-1.9H55.8v1.9z" />
+                </g>
+            </g>
+            <g id="XMLID_41_">
+                <path id="XMLID_76_" class="st2" d="M96.8 27.7h16.3v2.6H96.8z" />
+                <g id="interface_1_light_5_">
+                    <path id="XMLID_75_" class="st3" d="M85.3 3.1h38.8v24.6H85.3z" />
+                    <g id="XMLID_68_">
+                        <path id="XMLID_74_" class="st4" d="M93 17.2h23.4v6.2H93z" />
+                        <path id="XMLID_69_" class="st5" d="M116.6 23.5H92.9V17h23.7v6.5zm-23.5-.3h23.2v-6H93.1v6z" />
+                    </g>
+                    <g id="XMLID_49_">
+                        <path id="XMLID_67_" class="st6" d="M98.7 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_66_" class="st6" d="M97.4 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_63_" class="st6" d="M96.1 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_62_" class="st6" d="M94.8 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_61_" class="st6" d="M103.8 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_60_" class="st6" d="M102.5 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_59_" class="st6" d="M101.2 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_58_" class="st6" d="M100 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_57_" class="st6" d="M109 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_56_" class="st6" d="M107.6 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_55_" class="st6" d="M106.4 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_54_" class="st6" d="M105.1 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_53_" class="st6" d="M114.1 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_52_" class="st6" d="M112.9 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_51_" class="st6" d="M111.6 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_50_" class="st6" d="M110.3 18.7h.5v3.1h-.5z" />
+                    </g>
+                </g>
+                <g id="XMLID_44_">
+                    <path id="XMLID_48_" class="st7" d="M96.8 25.3h16.3v2H96.8z" />
+                    <path id="XMLID_45_" class="st5" d="M113.2 27.3H96.9v-2.1h16.3v2.1zm-16.3-.1H113v-1.9H96.9v1.9z" />
+                </g>
+            </g>
+            <g id="XMLID_6_">
+                <path id="XMLID_40_" class="st2" d="M137.7 27.7H154v2.6h-16.3z" />
+                <g id="interface_1_light_1_">
+                    <path id="XMLID_39_" class="st3" d="M126.2 3.1H165v24.6h-38.8z" />
+                    <g id="XMLID_32_">
+                        <path id="XMLID_38_" class="st4" d="M133.9 17.2h23.4v6.2h-23.4z" />
+                        <path id="XMLID_33_" class="st5" d="M157.5 23.5h-23.7V17h23.7v6.5zm-23.5-.3h23.2v-6H134v6z" />
+                    </g>
+                    <g id="XMLID_15_">
+                        <path id="XMLID_31_" class="st6" d="M139.6 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_30_" class="st6" d="M138.3 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_29_" class="st6" d="M137 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_28_" class="st6" d="M135.7 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_27_" class="st6" d="M144.7 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_26_" class="st6" d="M143.4 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_25_" class="st6" d="M142.1 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_24_" class="st6" d="M140.9 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_23_" class="st6" d="M149.9 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_22_" class="st6" d="M148.5 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_21_" class="st6" d="M147.3 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_20_" class="st6" d="M146 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_19_" class="st6" d="M155 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_18_" class="st6" d="M153.8 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_17_" class="st6" d="M152.5 18.7h.5v3.1h-.5z" />
+                        <path id="XMLID_16_" class="st6" d="M151.2 18.7h.5v3.1h-.5z" />
+                    </g>
+                </g>
+                <g id="XMLID_8_">
+                    <path id="XMLID_14_" class="st7" d="M137.7 25.3H154v2h-16.3z" />
+                    <path id="XMLID_9_" class="st5"
+                        d="M154.1 27.3h-16.3v-2.1h16.3v2.1zm-16.3-.1h16.1v-1.9h-16.1v1.9z" />
+                </g>
+            </g>
+        </g>
+        <g id="XMLID_4_">
+            <path id="light-25_1_" class="st8" d="M3.5 3.1h38.8v24.6H3.5z" />
+            <path id="light-26_1_" class="st8" d="M44.2 3.1H83v24.6H44.2z" />
+            <path id="light-27_1_" class="st8" d="M85.3 3.1H124v24.6H85.3z" />
+            <path id="light-28_1_" class="st8" d="M126.2 3.1H165v24.6h-38.8z" />
+        </g>
+    </g>
+</svg>
