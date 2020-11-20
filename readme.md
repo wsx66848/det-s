@@ -13,6 +13,8 @@ go build .
 go build .
 ```
 
+将 `det-s` `compoent` `vue/dist` 复制到 `10.3.220.200`上的 `/home/byr/fsc/TSD` 文件夹,并启动 `det-s`
+
 ### 测试
 
 `go run . -d` 启动服务
