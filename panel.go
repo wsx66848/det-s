@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"strconv"
 	"strings"
@@ -33,10 +34,11 @@ const (
 type Panel struct {
 	x1, x2, y1, y2 float32
 	U              int         `json:"u"`
-	Network        TargetSlice `json:"network"`
-	Optical        TargetSlice `json:"optical"`
+	Network        TargetSlice `json:"-"`
+	Optical        TargetSlice `json:"-"`
+	NetworkGroup   []Group     `json:"network"`
+	OpticalGroup   []Group     `json:"optical"`
 	USB            TargetSlice `json:"usb"`
-	Console        TargetSlice `json:"console"`
 	Manufacturer   TargetSlice `json:"manufacturer"`
 	Indicatorlight TargetSlice `json:"indicatorlight"`
 	Backplane      Target      `json:"backplane"`
@@ -49,7 +51,7 @@ type Target struct {
 	Py          float32 `json:"py"`
 	Width       float32 `json:"width"`
 	Height      float32 `json:"height"`
-	Probability float32 `json:"probability"`
+	Probability float32 `json:"-"`
 }
 
 // InitPanel 初始化面板边缘
@@ -161,19 +163,25 @@ func (p *Panel) Format() {
 	for index := range p.Network {
 		p.Network[index].vector(mx, my, p.Backplane)
 	}
+	p.NetworkGroup = groupTargets(p.Network)
 	for index := range p.Optical {
 		p.Optical[index].vector(mx, my, p.Backplane)
 	}
+	p.OpticalGroup = groupTargets(p.Optical)
 	for index := range p.USB {
 		p.USB[index].vector(mx, my, p.Backplane)
+		p.USB[index].round()
 	}
 	for index := range p.Indicatorlight {
 		p.Indicatorlight[index].vector(mx, my, p.Backplane)
+		p.Indicatorlight[index].round()
 	}
 	for index := range p.Manufacturer {
 		p.Manufacturer[index].vector(mx, my, p.Backplane)
+		p.Manufacturer[index].round()
 	}
 	p.Backplane.vector(mx, my, p.Backplane)
+	p.Backplane.round()
 }
 
 // ToSvg return panel's svg file
@@ -185,9 +193,8 @@ func (p *Panel) ToSvg() string {
 	str += getSvgString("backplane", fmt.Sprintf("%d.svg", p.U))
 	str += "</g>\n"
 	// 网口
-	gs := groupTargets(p.Network)
 	start := 1
-	for _, g := range gs {
+	for _, g := range p.NetworkGroup {
 		str += fmt.Sprintf(`<g transform="translate(%.1f,%.1f)">`, g.MinX, g.MinY)
 		str += getSvgString("network", fmt.Sprintf("%dm%d.svg", g.Row, g.Col))
 		str += "</g>\n"
@@ -200,9 +207,8 @@ func (p *Panel) ToSvg() string {
 		start += g.Col * g.Row
 	}
 	// 光口
-	gs = groupTargets(p.Optical)
 	start = 1
-	for _, g := range gs {
+	for _, g := range p.OpticalGroup {
 		str += fmt.Sprintf(`<g transform="translate(%.1f,%.1f)">`, g.MinX, g.MinY)
 		str += getSvgString("optical", fmt.Sprintf("%dm%d.svg", g.Row, g.Col))
 		str += "</g>\n"
@@ -215,10 +221,9 @@ func (p *Panel) ToSvg() string {
 		start += g.Col * g.Row
 	}
 	// 指示灯
-	gs = groupTargets(p.Indicatorlight)
-	for _, g := range gs {
-		str += fmt.Sprintf(`<g transform="translate(%.1f,%.1f)">`, g.MinX, g.MinY)
-		str += getSvgString("indicatorlight", fmt.Sprintf("%dm%d.svg", g.Row, g.Col))
+	for _, target := range p.Indicatorlight {
+		str += fmt.Sprintf(`<g transform="translate(%.1f,%.1f)">`, target.Px, target.Py)
+		str += getSvgString("usb", fmt.Sprintf("1m1.svg"))
 		str += "</g>\n"
 	}
 	// USB
@@ -235,6 +240,17 @@ func (p *Panel) ToSvg() string {
 	}
 	str += `</svg>`
 	return str
+}
+
+// ToJSON Panel to json byte array
+func (p *Panel) ToJSON() []byte {
+	ret, _ := json.Marshal(*p)
+	return ret
+}
+
+// FromJSON init Panel from json byte array
+func (p *Panel) FromJSON(b []byte) {
+	json.Unmarshal(b, p)
 }
 
 func (t Target) vsplite(n int, tp string) []Target {
@@ -259,4 +275,11 @@ func (t *Target) vector(mx, my float32, base Target) {
 	t.Py = my * (t.Py - base.Py)
 	t.Width *= mx
 	t.Height *= my
+}
+
+func (t *Target) round() {
+	t.Px = round(t.Px, 1)
+	t.Py = round(t.Py, 1)
+	t.Width = round(t.Width, 1)
+	t.Height = round(t.Height, 1)
 }

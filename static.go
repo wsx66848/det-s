@@ -20,9 +20,9 @@ var ContentType = map[string]string{
 
 func (h *staticHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	loger <- r.Method + ": " + r.RequestURI
-	content, err := ioutil.ReadFile(args["public"].(string) + r.RequestURI)
+	content, err := ioutil.ReadFile(args.publicDir + r.RequestURI)
 	if err != nil {
-		content, err = ioutil.ReadFile(args["public"].(string) + "/static" + r.RequestURI)
+		content, err = ioutil.ReadFile(args.publicDir + "/static" + r.RequestURI)
 	}
 	if err == nil {
 		ext := path.Ext(r.RequestURI)
@@ -32,7 +32,7 @@ func (h *staticHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		w.Write(content)
 		return
 	}
-	content, err = ioutil.ReadFile(args["public"].(string) + "/index.html")
+	content, err = ioutil.ReadFile(args.publicDir + "/index.html")
 	if err == nil {
 		w.Header().Set("Content-Type", "text/html; charset=UTF-8")
 		w.Write(content)

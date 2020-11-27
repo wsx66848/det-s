@@ -24,6 +24,12 @@ type Group struct {
 	Col  int
 }
 
+func (g *Group) round() Group {
+	g.MinX = round(g.MinX, 1)
+	g.MinY = round(g.MinY, 1)
+	return *g
+}
+
 // TargetSlice implements sort.Interface
 type TargetSlice []Target
 
@@ -99,7 +105,7 @@ func groupTargets(ts TargetSlice) []Group {
 			continue
 		}
 		if t.Px-ts[index-1].Px-AvgWidth > delta {
-			ret = append(ret, *tmp)
+			ret = append(ret, tmp.round())
 			tmp = &Group{t.Px, t.Py, 1, 1}
 			continue
 		}
@@ -122,7 +128,7 @@ func groupTargets(ts TargetSlice) []Group {
 			}
 		}
 	}
-	ret = append(ret, *tmp)
+	ret = append(ret, tmp.round())
 	loger <- fmt.Sprintf("分组结果: %#v\n", ret)
 	return ret
 }
@@ -194,4 +200,7 @@ func serial(col, start int, width float32) string {
 	return str
 }
 
-func init() { lessFunc = lessXY }
+func init() {
+	loger = make(chan string, 10) // 得尽早执行
+	lessFunc = lessXY
+}

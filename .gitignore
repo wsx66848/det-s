@@ -31,3 +31,6 @@
 det-s
 .vscode
 *.log
+.det-s.db
+component/.config.json
+component/**/base64
