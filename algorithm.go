@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"sort"
+	"strconv"
+	"strings"
 )
 
 // 左右两个t1和t2 如果`t2.Px-(t1.Px+t1.Width)<delta`被认为是在一个组中
@@ -189,15 +191,27 @@ func (a TargetSlice) adjust() {
 }
 
 func serial(col, start int, width float32) string {
+	serialType, _ := strconv.Atoi(getStyle("serial"))
 	str := fmt.Sprintf(`<svg xmlns="http://www.w3.org/2000/svg" width="%.1f" height="16" font-size="8">`, width*float32(col))
 	fifthW := width / 5
 	for i := 0; i < col; i++ {
 		n := start + i*2
-		str += fmt.Sprintf(`<g transform="translate(%.1f)"><g transform="translate(%.1f)"><text x="2" y="8">%d</text><text x="2" y="16">▲</text></g><g transform="translate(%.1f)"><text x="2" y="8">%d</text><text x="2" y="16">▼</text></g></g>`,
-			float32(i)*width, fifthW, n, fifthW*3, n+1)
+		if serialType == 0 {
+			str += fmt.Sprintf(`<g transform="translate(%.1f)"><g transform="translate(%.1f)"><text x="2" y="8">%d</text><text x="2" y="16">▲</text></g><g transform="translate(%.1f)"><text x="2" y="8">%d</text><text x="2" y="16">▼</text></g></g>`,
+				float32(i)*width, fifthW, n, fifthW*3, n+1)
+		} else {
+			str += fmt.Sprintf(`<g transform="translate(%.1f)"><g transform="translate(%.1f)"><text x="2" y="8">%d</text><text x="2" y="16">▼</text></g><g transform="translate(%.1f)"><text x="2" y="8">%d</text><text x="2" y="16">▲</text></g></g>`,
+				float32(i)*width, fifthW, n, fifthW*3, n+1)
+		}
 	}
 	str += `</svg>`
 	return str
+}
+
+// svgIDReplace("<svg>...", "${ID}", "1") // 把svg中的第一个${ID}替换成1
+// TODO: 涉及到字符串的重复遍历与拷贝,如果有性能问题暂时忽略
+func svgIDReplace(src, old string, new string) string {
+	return strings.Replace(src, old, new, 1)
 }
 
 func init() {

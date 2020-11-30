@@ -38,6 +38,7 @@ func main() {
 	http.HandleFunc("/api/upload", uploadHandler)       // POST 上传文件,返回识别后的位置信息,json格式
 	http.HandleFunc("/api/option", styleHandler)        // GET/POST
 	http.HandleFunc("/api/reloadsvg", reloadSvgHandler) // POST
+	http.HandleFunc("/api/download", downloadHander)    // GET
 	http.Handle("/", &staticHandler{})                  // GET 代理静态文件
 	http.ListenAndServe(args.addr, nil)
 }

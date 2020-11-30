@@ -30,6 +30,13 @@ const (
 	Lheight float32 = 32
 )
 
+// NPrefix 网口ID前缀
+// OPrefix 光口ID前缀
+const (
+	NPrefix = "g-"
+	OPrefix = "e-"
+)
+
 // Panel 面板上所有目标
 type Panel struct {
 	x1, x2, y1, y2 float32
@@ -194,13 +201,19 @@ func (p *Panel) ToSvg() string {
 	str += "</g>\n"
 	// 网口
 	start := 1
+	serialType, _ := strconv.Atoi(getStyle("serial"))
 	for _, g := range p.NetworkGroup {
 		str += fmt.Sprintf(`<g transform="translate(%.1f,%.1f)">`, g.MinX, g.MinY)
-		str += getSvgString("network", fmt.Sprintf("%dm%d.svg", g.Row, g.Col))
-		str += "</g>\n"
+		tmp := getSvgString("network", fmt.Sprintf("%dm%d.svg", g.Row, g.Col)) + "</g>\n"
 		if g.Row == 1 {
+			str += tmp
 			continue
 		}
+		for i := 0; i < g.Col*g.Row; i += 2 {
+			tmp = svgIDReplace(tmp, "${ID}", NPrefix+fmt.Sprint(start+i+serialType))
+			tmp = svgIDReplace(tmp, "${ID}", NPrefix+fmt.Sprint(start+i+1-serialType))
+		}
+		str += tmp
 		str += fmt.Sprintf(`<g transform="translate(%.1f,%.1f)">`, g.MinX, g.MinY-17)
 		str += serial(g.Col, start, Nwidth)
 		str += "</g>\n"
@@ -210,11 +223,16 @@ func (p *Panel) ToSvg() string {
 	start = 1
 	for _, g := range p.OpticalGroup {
 		str += fmt.Sprintf(`<g transform="translate(%.1f,%.1f)">`, g.MinX, g.MinY)
-		str += getSvgString("optical", fmt.Sprintf("%dm%d.svg", g.Row, g.Col))
-		str += "</g>\n"
+		tmp := getSvgString("optical", fmt.Sprintf("%dm%d.svg", g.Row, g.Col)) + "</g>\n"
 		if g.Row == 1 {
+			str += tmp
 			continue
 		}
+		for i := 0; i < g.Col*g.Row; i += 2 {
+			tmp = svgIDReplace(tmp, "${ID}", OPrefix+fmt.Sprint(start+i+serialType))
+			tmp = svgIDReplace(tmp, "${ID}", OPrefix+fmt.Sprint(start+i+1-serialType))
+		}
+		str += tmp
 		str += fmt.Sprintf(`<g transform="translate(%.1f,%.1f)">`, g.MinX, g.MinY-17)
 		str += serial(g.Col, start, Nwidth)
 		str += "</g>\n"
