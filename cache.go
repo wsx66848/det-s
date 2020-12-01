@@ -76,7 +76,7 @@ func getSvgTypeOption(tp string) []SelectOption {
 				ret = append(ret, SelectOption{svg, style1})
 			}
 			if style2, ok := if1.(map[string]interface{}); ok {
-				if icon, ok := style2["base64"]; ok {
+				if icon, ok := style2["icon"]; ok {
 					ret = append(ret, SelectOption{icon.(string), style1})
 				} else {
 					ret = append(ret, SelectOption{unkowICON, style1})

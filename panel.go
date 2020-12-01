@@ -205,7 +205,7 @@ func (p *Panel) ToSvg() string {
 	for _, g := range p.NetworkGroup {
 		str += fmt.Sprintf(`<g transform="translate(%.1f,%.1f)">`, g.MinX, g.MinY)
 		tmp := getSvgString("network", fmt.Sprintf("%dm%d.svg", g.Row, g.Col)) + "</g>\n"
-		if g.Row == 1 {
+		if g.Row == 1 && g.Col == 1 {
 			str += tmp
 			continue
 		}
@@ -224,7 +224,7 @@ func (p *Panel) ToSvg() string {
 	for _, g := range p.OpticalGroup {
 		str += fmt.Sprintf(`<g transform="translate(%.1f,%.1f)">`, g.MinX, g.MinY)
 		tmp := getSvgString("optical", fmt.Sprintf("%dm%d.svg", g.Row, g.Col)) + "</g>\n"
-		if g.Row == 1 {
+		if g.Row == 1 && g.Col == 1 {
 			str += tmp
 			continue
 		}
