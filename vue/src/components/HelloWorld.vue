@@ -1,24 +1,26 @@
 <template>
   <div>
   <el-row style="margin-bottom: 30px">
-    <el-col :span="4" v-for="opt in options" :key="opt.key">
-      <el-select v-model="opt.value" :placeholder="opt.name">
-        <el-option
-          v-for="item in opt.option"
-          :key="item.value"
-          :label="item.value"
-          :value="item.value">
-          <div v-if="item.label[0]=='<'" v-html="item.label"/>
-          <img v-else :src="item.label">
-        </el-option>
-      </el-select>
-    </el-col>
-    <el-col :span="4" style="white-space:nowrap;">
-      <el-button type="primary" icon="el-icon-setting" @click="updateOption"/>
-      <el-button type="primary" icon="el-icon-download" @click="download"/>
-    </el-col>
+      <el-form :inline="true">
+        <el-form-item v-for="opt in options" :key="opt.key" :label="opt.name">
+          <el-select clearable v-model="opt.value">
+          <el-option
+            v-for="item in opt.option"
+            :key="item.value"
+            :label="item.value"
+            :value="item.value">
+            <div v-if="item.label[0]=='<'" v-html="item.label"/>
+            <img v-else :src="item.label">
+          </el-option>
+        </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="updateOption">保存</el-button>
+          <el-button type="primary" @click="download">下载</el-button>
+        </el-form-item>
+      </el-form>
   </el-row>
-  <el-row style="margin-bottom: 30px">
+  <el-row style="margin-bottom: 50px">
     <el-upload
       class="upload-demo"
       drag multiple
@@ -39,10 +41,16 @@
       </i>
     </el-upload>
   </el-row>
-  <el-row>
-    <div v-for="item, key, index in svgs">
-      <div v-html="item"></div>
-    </div>
+  <el-divider></el-divider>
+  <el-row v-for="(item, key, index) in svgs" :key="index">
+    <el-form :inline="true">
+      <el-form-item>
+        <el-input style="" @change="changeFileName(key, item, ...arguments)" v-model="fileNames[index]"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <div v-html="item" style="display: inline-block;"></div>
+      </el-form-item>
+    </el-form>
   </el-row>
   </div>
 </template>
@@ -51,6 +59,9 @@
 import axios from 'axios'
 export default {
   name: "HelloWorld",
+  created () {
+    document.title = ''
+  },
   data() {
     return {
       svgs: {
@@ -64,8 +75,10 @@ export default {
         {key: "network",        name: "网口",   value: "", option: []},
         {key: "optical",        name: "光口",   value: "", option: []},
         {key: "indicatorlight", name: "指示灯", value: "", option: []},
-        {key: "usb",            name: "USB",    value: "", option: []}
-      ]
+        {key: "usb",            name: "USB",    value: "", option: []},
+        {key: "serial",         name: "接口ID", value: "", option: []}
+      ],
+      fileNames: [] 
     }
   },
   mounted() {
@@ -83,19 +96,21 @@ export default {
       console.error(err)
     },
     handleSuccess(response, file) {
-      this.$set(this.jsons, file.name, response)
+      let fileName = file.name.replace(".jpg","")
+      this.$set(this.jsons, fileName, response)
       let params = {}
-      params[file.name] = response
+      params[fileName] = response
       axios.post('/api/reloadsvg', params)
         .then(res => {
-          this.$set(this.svgs, file.name, res.data[file.name] || `ERROR`)
+          this.$set(this.svgs, fileName, res.data[fileName] || `ERROR`)
+          this.fileNames = Object.keys(this.svgs)
         }).catch(e => {
           console.error(e)
         })
     },
     handleRemove(file) {
-      this.$delete(this.svgs, file.name)
-      this.$delete(this.jsons, file.name)
+      this.$delete(this.svgs, file.name.replace(".jpg",""))
+      this.$delete(this.jsons, file.name.replace(".jpg",""))
     },
     updateOption() {
       let params = this.options.map(opt => {
@@ -117,7 +132,9 @@ export default {
           console.error(e)
         })
     },
-    download() {},
+    download() {
+      this.postDownload('/api/download', this.jsons)
+    },
     async queryOption(type) {
       let ret = []
       await axios.get('/api/option', {params:{key:type}})
@@ -127,6 +144,32 @@ export default {
           console.error(e)
         })
       return ret
+    },
+    changeFileName (key, item, val) {
+      this.$delete(this.svgs, key)
+      this.$set(this.jsons, val, this.jsons[key])
+      this.$delete(this.jsons, key)
+      this.$set(this.svgs, val, item)
+    },
+    async postDownload (url, params) {
+      const request = {
+        body: JSON.stringify(params),
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8'
+        }
+      }
+      const response = await fetch(url, request)
+      const blob = await response.blob()
+      const link = document.createElement('a')
+      link.download = decodeURIComponent('test')
+      link.style.display = 'none'
+      link.href = URL.createObjectURL(blob)
+      document.body.appendChild(link)
+      link.click()
+      URL.revokeObjectURL(link.href)
+      document.body.removeChild(link)
+      
     }
   }
 };
@@ -140,3 +183,8 @@ export default {
   background-color: silver
 }
 </style>>
+<style>
+  .el-upload--picture-card {
+  width: 360px;
+}
+</style>
