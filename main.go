@@ -18,6 +18,7 @@ type Args struct {
 	file      string
 	publicDir string
 	debug     bool
+	svg       string
 }
 
 var args Args
@@ -30,6 +31,8 @@ func parseArg() {
 	flag.StringVar(&args.file, "f", "fsc/detect.py", "python file")
 	flag.StringVar(&args.publicDir, "public", "vue/dist/", "public dir")
 	flag.BoolVar(&args.debug, "d", false, "debug")
+	// for svg debug
+	flag.StringVar(&args.svg, "svg", "test_image/test.svg", "svg debug file")
 	flag.Parse()
 	loger <- fmt.Sprint(args)
 }

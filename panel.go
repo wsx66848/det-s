@@ -3,6 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"os"
 	"strconv"
 	"strings"
 )
@@ -193,6 +195,13 @@ func (p *Panel) Format() {
 
 // ToSvg return panel's svg file
 func (p *Panel) ToSvg() string {
+	// svg debug start
+    f,err := os.Open(args.svg)
+    if err == nil {
+    	content, _ := ioutil.ReadAll(f)
+    	return string(content)
+	}
+	// svg debug end
 	var str string
 	str += fmt.Sprintf(`<svg xmlns="http://www.w3.org/2000/svg" width="%.f" height="%.f">`, p.Backplane.Width, p.Backplane.Height) + "\n"
 	// 背板
@@ -241,7 +250,7 @@ func (p *Panel) ToSvg() string {
 	// 指示灯
 	for _, target := range p.Indicatorlight {
 		str += fmt.Sprintf(`<g transform="translate(%.1f,%.1f)">`, target.Px, target.Py)
-		str += getSvgString("usb", fmt.Sprintf("1m1.svg"))
+		str += getSvgString("indicatorlight", fmt.Sprintf("1m1.svg"))
 		str += "</g>\n"
 	}
 	// USB
