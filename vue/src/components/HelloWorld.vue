@@ -43,6 +43,21 @@
   </el-row>
   <el-divider></el-divider>
   <el-row v-for="(item, key, index) in svgs" :key="index">
+    <div class="image_preview">
+      <el-image
+        style="width: 30%"
+        :src="imgs[key]"
+        :preview-src-list="[imgs[key]]"
+        fit="contain"
+        >
+        <div slot="placeholder" class="image-slot">
+          加载中<span class="dot">...</span>
+        </div>
+        <div slot="error" class="image-slot">
+          <i class="el-icon-picture-outline"></i>
+        </div>
+      </el-image>
+    </div>
     <el-form :inline="true">
       <el-form-item>
         <el-input style="" @change="changeFileName(key, item, ...arguments)" v-model="fileNames[index]"></el-input>
@@ -70,6 +85,10 @@ export default {
       jsons: { // 文件名保持一致
         // filename: origin json data
       },
+      imgs: {
+        // filename: base64code src
+      },
+
       options: [
         {key: "manufacturer",   name: "厂商",   value: "", option: []},
         {key: "network",        name: "网口",   value: "", option: []},
@@ -78,7 +97,8 @@ export default {
         {key: "usb",            name: "USB",    value: "", option: []},
         {key: "serial",         name: "接口ID", value: "", option: []}
       ],
-      fileNames: [] 
+      fileNames: [],
+      base_img_prefix: "data:image/png;base64,",
     }
   },
   mounted() {
@@ -97,7 +117,10 @@ export default {
     },
     handleSuccess(response, file) {
       let fileName = file.name.replace(".jpg","")
+      let img_base64_src = response.outfile
+      delete response.outfile
       this.$set(this.jsons, fileName, response)
+      this.$set(this.imgs, fileName, this.base_img_prefix + img_base64_src)
       let params = {}
       params[fileName] = response
       axios.post('/api/reloadsvg', params)
@@ -169,7 +192,7 @@ export default {
       link.click()
       URL.revokeObjectURL(link.href)
       document.body.removeChild(link)
-      
+
     }
   }
 };
