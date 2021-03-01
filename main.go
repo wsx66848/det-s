@@ -97,6 +97,7 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 
 func call(file string) []byte {
 	stdout, err := exec.Command("python", args.file, file).CombinedOutput()
+	loger <- string(stdout)
 	if err != nil {
 		loger <- "执行脚本失败: file[" + file + "] " + err.Error()
 		loger <- string(stdout)
@@ -118,8 +119,8 @@ func call(file string) []byte {
 }
 
 func init() {
-	parseArg()
 	go record()
+	parseArg()
 	if args.help {
 		flag.CommandLine.Usage()
 		return
