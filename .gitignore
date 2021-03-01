@@ -34,3 +34,4 @@ det-s
 .det-s.db
 component/.config.json
 component/**/base64
+.idea/
