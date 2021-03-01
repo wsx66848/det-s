@@ -1,8 +1,12 @@
 package main
 
 import (
+	"bytes"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"os"
 	"strconv"
 	"strings"
 )
@@ -37,6 +41,23 @@ const (
 	OPrefix = "e-"
 )
 
+type Base64File string
+
+func (f Base64File) MarshalJSON() ([]byte, error) {
+	file, err := ioutil.ReadFile(string(f))
+	if err != nil {
+		return []byte{}, err
+	}
+	var buf bytes.Buffer
+	buf.WriteString(fmt.Sprintf("\"%s\"", base64.StdEncoding.EncodeToString(file)))
+	return buf.Bytes(), nil
+}
+
+func (f* Base64File) UnmarshalJSON(data []byte) error {
+	*f = Base64File(string(data))
+	return nil
+}
+
 // Panel 面板上所有目标
 type Panel struct {
 	x1, x2, y1, y2 float32
@@ -49,6 +70,7 @@ type Panel struct {
 	Manufacturer   TargetSlice `json:"manufacturer"`
 	Indicatorlight TargetSlice `json:"indicatorlight"`
 	Backplane      Target      `json:"backplane"`
+	OutFile        Base64File  `json:"outfile"`
 }
 
 // Target 面板上目标位置信息
@@ -82,11 +104,7 @@ func (p *Panel) updateRectangle(edge [4]float32) {
 	}
 }
 
-// Add parse line and add target to panel
-func (p *Panel) Add(line string) {
-	if !strings.HasPrefix(line, "bboxes") {
-		return
-	}
+func (p *Panel) AddBoundingBoxes(line string) {
 	boxlabel := strings.Split(line, ",")
 	if len(boxlabel) < 2 {
 		return
@@ -107,10 +125,13 @@ func (p *Panel) Add(line string) {
 	tmp = strings.TrimLeft(tmp, " ")
 	tmp = strings.TrimRight(tmp, "\r")
 	label := strings.Split(tmp, "|")
-	probability, err := strconv.ParseFloat(label[1], 32)
-	if err != nil {
-		loger <- "数字解析失败: " + err.Error()
-		return
+	probability := 0.0
+	if len(label) >= 2 {
+		probability, err = strconv.ParseFloat(label[1], 32)
+		if err != nil {
+			loger <- "数字解析失败: " + err.Error()
+			return
+		}
 	}
 	target := Target{
 		label[0],
@@ -159,6 +180,23 @@ func (p *Panel) Add(line string) {
 	}
 }
 
+func (p *Panel) AddBase64File(line string) {
+	fileLabel := strings.Split(line, ":")
+	if len(fileLabel) < 2 {
+		return
+	}
+	p.OutFile = Base64File(strings.TrimSpace(fileLabel[1]))
+}
+// Add parse line and add target to panel
+func (p *Panel) Add(line string) {
+	if strings.HasPrefix(line, "bboxes") {
+		p.AddBoundingBoxes(line)
+	}
+	if strings.HasPrefix(line, "out_file") {
+		p.AddBase64File(line)
+	}
+}
+
 // Format 按照实际尺寸(1U/2U/4U)格式化数值
 func (p *Panel) Format() {
 	p.Backplane.Px, p.Backplane.Py = p.x1, p.y1
@@ -193,6 +231,13 @@ func (p *Panel) Format() {
 
 // ToSvg return panel's svg file
 func (p *Panel) ToSvg() string {
+	// svg debug start
+    f,err := os.Open(args.svg)
+    if err == nil {
+    	content, _ := ioutil.ReadAll(f)
+    	return string(content)
+	}
+	// svg debug end
 	var str string
 	str += fmt.Sprintf(`<svg xmlns="http://www.w3.org/2000/svg" width="%.f" height="%.f">`, p.Backplane.Width, p.Backplane.Height) + "\n"
 	// 背板
@@ -241,7 +286,7 @@ func (p *Panel) ToSvg() string {
 	// 指示灯
 	for _, target := range p.Indicatorlight {
 		str += fmt.Sprintf(`<g transform="translate(%.1f,%.1f)">`, target.Px, target.Py)
-		str += getSvgString("usb", fmt.Sprintf("1m1.svg"))
+		str += getSvgString("indicatorlight", fmt.Sprintf("1m1.svg"))
 		str += "</g>\n"
 	}
 	// USB
@@ -262,7 +307,11 @@ func (p *Panel) ToSvg() string {
 
 // ToJSON Panel to json byte array
 func (p *Panel) ToJSON() []byte {
-	ret, _ := json.Marshal(*p)
+	ret, err := json.Marshal(*p)
+	if err != nil {
+		loger <- fmt.Sprintf("panel to json error, err: %s", err.Error())
+		return []byte{}
+	}
 	return ret
 }
 

@@ -18,6 +18,7 @@ type Args struct {
 	file      string
 	publicDir string
 	debug     bool
+	svg       string
 }
 
 var args Args
@@ -30,6 +31,8 @@ func parseArg() {
 	flag.StringVar(&args.file, "f", "fsc/detect.py", "python file")
 	flag.StringVar(&args.publicDir, "public", "vue/dist/", "public dir")
 	flag.BoolVar(&args.debug, "d", false, "debug")
+	// for svg debug
+	flag.StringVar(&args.svg, "svg", "test_image/test.svg", "svg debug file")
 	flag.Parse()
 	loger <- fmt.Sprint(args)
 }
@@ -94,6 +97,7 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 
 func call(file string) []byte {
 	stdout, err := exec.Command("python", args.file, file).CombinedOutput()
+	loger <- string(stdout)
 	if err != nil {
 		loger <- "执行脚本失败: file[" + file + "] " + err.Error()
 		loger <- string(stdout)
@@ -115,8 +119,8 @@ func call(file string) []byte {
 }
 
 func init() {
-	parseArg()
 	go record()
+	parseArg()
 	if args.help {
 		flag.CommandLine.Usage()
 		return
